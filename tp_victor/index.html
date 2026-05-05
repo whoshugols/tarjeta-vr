@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <!-- 
+        ATENCIÓN: CAMBIAR EL TÍTULO A ALGO ADECUADO 
+        -->
+        <title>ARnft example showing a video</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=0.5, maximum-scale=1" />
+        <link rel="stylesheet" href="css/nft-style.css" />
+    </head>
+
+    <body>
+        <!-- 
+        ATENCIÓN: CAMBIAR LA REFERENCIA AL MARCADOR (JPG O PNG) ADECUADO 
+        -->
+        <a
+            href="victor.jpg"
+            class="ui marker"
+            target="_blank"
+        >
+        <!-- 
+        ATENCIÓN: CAMBIAR EL TEXTO POR ALGO COMO "Imágen de referencia" O DEJAR COMO ESTÁ 
+        -->
+            🖼 Marker Image
+        </a>
+        <!-- 
+        ATENCIÓN: EL TAG video REQUIERE muted EN IOS POR DEFAULT PARA MOSTRAR EL VIDEO, SE PUEDE INTENTAR
+        REMOVER (UTILIZAR LA LÍNEA DE ABAJO) PARA QUE INICIE CON AUDIO, O UTILIZAR EN SU LUGAR LA QUE TIENE
+        EL COMENTARIO, QUE INCLUYE EL muted SI HAY ALGÚN PROBLEMA 
+        -->
+        <!-- 
+        <video loop autoplay muted webkit-playsinline playsinline crossorigin="anonymous" id="arvideo"> 
+        -->
+        <video loop autoplay webkit-playsinline playsinline crossorigin="anonymous" id="arvideo">
+            <!-- 
+            ATENCIÓN: CAMBIAR AL VIDEO ADECUADO 
+            -->
+            <source src="playa.mp4" type="video/mp4" />
+        </video>
+
+        <script type="importmap">
+            {
+                "imports": {
+                    "three": "./js/three.module.min.js",
+                    "arnft-threejs": "./js/ARnftThreejs.mjs",
+                    "arnft": "./js/ARnft.mjs"
+                }
+            }
+        </script>
+
+        <script type="module">
+            import * as THREE from "three";
+            import arnft from "arnft";
+            const { ARnft } = arnft;
+            import ARnftThreejs from "arnft-threejs";
+            const { SceneRendererTJS, NFTaddTJS } = ARnftThreejs;
+
+            // 
+            //    ATENCIÓN: CAMBIAR AL TAMAÑO DE LA REFERENCIA (JPG O PNG) ADECUADO 
+            //
+            let width = 1200;
+            let height = 650;
+            // 
+            //    ATENCIÓN: CAMBIAR AL NOMBRE DEL MARCADOR (JPG O PNG) ADECUADO 
+            //
+            ARnft.init(width, height, [["pruebaarnft/nft/victor"]], [["victor"]], "config.json", false)
+                .then((nft) => {
+                    document.addEventListener("containerEvent", function (ev) {
+                        let canvas = document.getElementById("canvas");
+                        let fov = (0.8 * 180) / Math.PI;
+                        let ratio = width / height;
+                        let config = {
+                            renderer: {
+                                alpha: true,
+                                antialias: true,
+                                context: null,
+                                precision: "mediump",
+                                premultipliedAlpha: true,
+                                stencil: true,
+                                depth: true,
+                                logarithmicDepthBuffer: true,
+                            },
+                            camera: {
+                                fov: fov,
+                                ratio: ratio,
+                                near: 0.01,
+                                far: 1000,
+                            },
+                        };
+
+                        let sceneThreejs = new SceneRendererTJS(config, canvas, nft.uuid, true);
+                        sceneThreejs.initRenderer();
+
+                        let nftAddTJS = new NFTaddTJS(nft.uuid);
+                        // 
+                        //    ATENCIÓN: AL TAMAÑO ADECUADO EN h PARA EL **VIDEO**, Y NO PARA EL JPG/PNG
+                        //              DEBE QUEDAR ALTO/ANCHO <- CUIDADO, NO ESCRIBIR ANCHO/ALTO 
+                        //
+                        // Set width, height and width and height number of segments of the PlaneGeometry.
+                        let imgConfig = { w: 1, h: 720/1280, ws: 1, hs: 1 };
+                        // 
+                        //    ATENCIÓN: CAMBIAR LA REFERENCIA (2o parámetro, "unla_pasillo") AL MARCADOR ADECUADO 
+                        //    ATENCIÓN: CAMBIAR LA ESCALA (3er parámetro, 200) AL VALOR QUE SE REQUIERA 
+                        //
+                        // Set object in scene, nft to find, scale, plane to draw video on, mostrar sólo en detección o no
+                        nftAddTJS.addVideo("arvideo", "victor", 180, imgConfig, false);
+
+                        const tick = () => {
+                            sceneThreejs.draw();
+                            window.requestAnimationFrame(tick);
+                        };
+                        tick();
+                    });
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        </script>
+    </body>
+</html>
