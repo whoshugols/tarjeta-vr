@@ -1,6 +1,6 @@
 {
     "addPath": "",
-    "cameraPara": "tp_victor/data/camera_para.dat",
+    "cameraPara": "tarjeta-vr/data/camera_para.dat",
     "container": {
       "create": true,
       "containerName": "",
