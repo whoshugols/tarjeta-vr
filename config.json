@@ -27,7 +27,7 @@
       "loadingMessage": "Espere un momento por favor, lo estamos atendiendo..."
     },
     "stats": {
-      "createHtml": true
+      "createHtml": false
     },
     "oef": true
   }
