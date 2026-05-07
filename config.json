@@ -24,7 +24,7 @@
         "src": "data/salsa.gif",
         "alt": "arNFT.js logo"
       },
-      "loadingMessage": "Espere un momento por favor, lo estamos atendiendo..."
+      "loadingMessage": "Espere un momento por favor, lo estamos atendiendo, ahorita en un ratito..."
     },
     "stats": {
       "createHtml": false
