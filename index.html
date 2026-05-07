@@ -66,7 +66,7 @@
             //
             ARnft.init(width, height, [["tarjeta-vr/nft/marcador"]], [["marcador"]], "config.json", false)
                 .then((nft) => {
-                    let luz=new THREE.AmbientLight(0xFFFFFF,5)
+                    let luz=new THREE.AmbientLight(0xFFFFFF,10)
                     document.addEventListener("containerEvent", function (ev) {
                         let canvas = document.getElementById("canvas");
                         let fov = (0.8 * 180) / Math.PI;
