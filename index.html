@@ -64,7 +64,7 @@
             // 
             //    ATENCIÓN: CAMBIAR AL NOMBRE DEL MARCADOR (JPG O PNG) ADECUADO 
             //
-            ARnft.init(width, height, [["tarjeta-vr/nft/Tarjeta_Marcador_VR"]], [["tp_marcador"]], "config.json", false)
+            ARnft.init(width, height, [["tarjeta-vr/nft/marcador"]], [["marcador"]], "config.json", false)
                 .then((nft) => {
                     document.addEventListener("containerEvent", function (ev) {
                         let canvas = document.getElementById("canvas");
@@ -104,7 +104,7 @@
                         //    ATENCIÓN: CAMBIAR LA ESCALA (3er parámetro, 200) AL VALOR QUE SE REQUIERA 
                         //
                         // Set object in scene, nft to find, scale, plane to draw video on, mostrar sólo en detección o no
-                        nftAddTJS.addVideo("arvideo", "tp_marcador", 200, imgConfig, false);
+                        nftAddTJS.addVideo("arvideo", "marcador", 200, imgConfig, false);
 
                         const tick = () => {
                             sceneThreejs.draw();
